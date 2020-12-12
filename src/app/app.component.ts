@@ -3,6 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { Table } from './Entities/Table';
+
+import{createConnection,ConnectionOptions} from 'typeorm';
 
 @Component({
   selector: 'app-root',
@@ -57,6 +60,7 @@ export class AppComponent implements OnInit {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+       this.createConnection();
     });
   }
 
@@ -66,4 +70,36 @@ export class AppComponent implements OnInit {
       this.selectedIndex = this.appPages.findIndex(page => page.title.toLowerCase() === path.toLowerCase());
     }
   }
+
+   private createConnection() {
+    let dbOptions: ConnectionOptions;
+
+    if (this.platform.is('cordova')) {
+
+      dbOptions = {
+        type: 'cordova',
+        database: '__mydatabase',
+        location: 'default'
+      };
+    } else {
+
+      dbOptions = {
+        type: 'sqljs',
+        location: 'browser',
+        autoSave: true
+      };
+    }
+
+
+    // additional options
+    Object.assign(dbOptions, {
+      logging: ['error', 'query', 'schema'],
+      synchronize: true,
+      entities: [
+        Table
+      ]
+    });
+
+    return createConnection(dbOptions);
+  } 
 }

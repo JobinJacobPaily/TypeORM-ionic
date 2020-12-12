@@ -1,5 +1,7 @@
 {
   "name": "TypORM",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

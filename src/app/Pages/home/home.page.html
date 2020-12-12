@@ -1,0 +1,13 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Home</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item *ngFor='let x of loaddata'>
+ <ion-label>{{x.Age}}</ion-label>
+<ion-label>{{x.name}}</ion-label>
+<ion-label>{{x.Date}}</ion-label> 
+</ion-item>
+</ion-content>

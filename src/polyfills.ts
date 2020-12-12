@@ -64,3 +64,13 @@ import 'zone.js/dist/zone';  // Included with Angular CLI.
 /***************************************************************************************************
  * APPLICATION IMPORTS
  */
+(window.global as any) = window;
+
+// global.Buffer is requred
+global.Buffer = global.Buffer || require('buffer').Buffer;
+
+// NodeJS.process is requred
+(window as any).process = {
+    env: { DEBUG: undefined },
+    browser: true
+};
